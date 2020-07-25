@@ -60,6 +60,9 @@ const getLatestTweets = async (peopleIAmFollowing: Person[]) => {
       );
 
       let data = await response.json();
+      if (!Array.isArray(data)) {
+        return [];
+      }
 
       data.forEach((tweet: Tweet) => {
         tweets.push(tweet);
