@@ -5,12 +5,14 @@ import Head from "next/head";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function Home() {
-  const { data, error } = useSWR("/api/my-timeline", fetcher);
+  let { data, error } = useSWR("/api/my-timeline", fetcher);
 
-  if (!data) return <div>Loading...</div>;
-
-  if (!data.peopleIAmFollowing && !data.latestTweets) {
-    return <div>There was an error.</div>;
+  // TODO: this is code smell but I don't another way
+  if (!data || !data.peopleIAmFollowing || !data.latestTweets) {
+    data = {
+      peopleIAmFollowing: [],
+      latestTweets: [],
+    };
   }
 
   return (
@@ -19,14 +21,12 @@ function Home() {
         <title>Oblivious</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <h1 className="logo">Oblivious</h1>
-      <p className="tagLine">
-        Follow a few cool people without actually being on Twitter.
-      </p>
-      <br />
+
       <p className="followerCount">
         You are following {data.peopleIAmFollowing.length} people.
       </p>
+
+      {!data && <p>Loading...</p>}
 
       {data.latestTweets.map((tweet: Tweet) => {
         return (
@@ -38,21 +38,6 @@ function Home() {
       })}
 
       <style jsx>{`
-        .container {
-          margin-right: auto; /* 1 */
-          margin-left: auto; /* 1 */
-
-          max-width: 960px; /* 2 */
-
-          padding-right: 10px; /* 3 */
-          padding-left: 10px; /* 3 */
-        }
-
-        .logo {
-          font-size: 50px;
-          margin-bottom: 5px;
-        }
-
         .followerCount {
           margin-top: 0;
         }
@@ -65,11 +50,6 @@ function Home() {
 
         .tweetText {
           margin-top: 5px;
-        }
-
-        .tagLine {
-          margin-top: 0;
-          color: #656464;
         }
       `}</style>
 
@@ -85,6 +65,16 @@ function Home() {
 
         * {
           box-sizing: border-box;
+        }
+
+        .container {
+          margin-right: auto; /* 1 */
+          margin-left: auto; /* 1 */
+
+          max-width: 960px; /* 2 */
+
+          padding-right: 10px; /* 3 */
+          padding-left: 10px; /* 3 */
         }
       `}</style>
     </div>
