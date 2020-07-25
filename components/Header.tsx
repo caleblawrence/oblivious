@@ -9,13 +9,20 @@ function Header() {
 
       <style jsx>{`
         .logo {
-          font-size: 50px;
+          font-size: 80px;
           margin-bottom: 5px;
         }
 
         .tagLine {
           margin-top: 0;
           color: #656464;
+        }
+
+        @media only screen and (max-width: 768px) {
+          .logo {
+            font-size: 50px;
+            margin-bottom: 5px;
+          }
         }
       `}</style>
     </div>
