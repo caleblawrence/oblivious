@@ -11,10 +11,7 @@ function SingleTweet(props: Props) {
         <p className="userName">{tweet.user.name}</p>
         <p className="tweetText">{tweet.text}</p>
         {tweet.entities?.media && (
-          <img
-            style={{ maxHeight: 400, marginBottom: 100 }}
-            src={tweet.entities.media[0].media_url}
-          />
+          <img src={tweet.entities.media[0].media_url_https} />
         )}
       </div>
       <style jsx>{`
@@ -26,6 +23,18 @@ function SingleTweet(props: Props) {
 
         .tweetText {
           margin-top: 5px;
+        }
+
+        img {
+          max-width: 800px;
+          margin-bottom: 50px;
+        }
+
+        @media only screen and (max-width: 768px) {
+          img {
+            width: 100%;
+            margin-bottom: 10px;
+          }
         }
       `}</style>
     </div>
