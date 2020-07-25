@@ -1,5 +1,6 @@
 import useSWR from "swr";
 import { Tweet } from "../Types/Tweet";
+import Head from "next/head";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
@@ -14,6 +15,10 @@ function Home() {
 
   return (
     <div className="container">
+      <Head>
+        <title>Oblivious</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <h1 className="logo">Oblivious</h1>
       <p className="tagLine">
         Follow a few cool people without actually being on Twitter.
@@ -25,7 +30,7 @@ function Home() {
 
       {data.latestTweets.map((tweet: Tweet) => {
         return (
-          <div>
+          <div key={tweet.id}>
             <p className="userName">{tweet.user.name}</p>
             <p className="tweetText">{tweet.text}</p>
           </div>
