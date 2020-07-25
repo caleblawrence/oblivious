@@ -5,7 +5,7 @@ import Head from "next/head";
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function Home() {
-  let { data, error } = useSWR("/api/my-timeline", fetcher);
+  let { data, error, isValidating } = useSWR("/api/my-timeline", fetcher);
 
   // TODO: this is code smell but I don't another way
   if (!data || !data.peopleIAmFollowing || !data.latestTweets) {
@@ -26,7 +26,7 @@ function Home() {
         You are following {data.peopleIAmFollowing.length} people.
       </p>
 
-      {!data && <p>Loading...</p>}
+      {isValidating && <p>Loading...</p>}
 
       {data.latestTweets.map((tweet: Tweet) => {
         return (
