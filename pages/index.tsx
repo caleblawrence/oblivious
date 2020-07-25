@@ -1,19 +1,12 @@
 import useSWR from "swr";
 import { Tweet } from "../Types/Tweet";
 import Head from "next/head";
+import TweetFeed from "../components/TweetFeed";
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function Home() {
   let { data, error, isValidating } = useSWR("/api/my-timeline", fetcher);
-
-  // TODO: this is code smell but I don't another way
-  if (!data || !data.peopleIAmFollowing || !data.latestTweets) {
-    data = {
-      peopleIAmFollowing: [],
-      latestTweets: [],
-    };
-  }
 
   return (
     <div className="container">
@@ -22,34 +15,23 @@ function Home() {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
 
-      <p className="followerCount">
-        You are following {data.peopleIAmFollowing.length} people.
-      </p>
+      {data && data.peopleIAmFollowing && (
+        <p className="followerCount">
+          You are following {data.peopleIAmFollowing.length} people.
+        </p>
+      )}
 
       {isValidating && <p>Loading...</p>}
 
-      {data.latestTweets.map((tweet: Tweet) => {
-        return (
-          <div key={tweet.id}>
-            <p className="userName">{tweet.user.name}</p>
-            <p className="tweetText">{tweet.text}</p>
-          </div>
-        );
-      })}
+      {data && data.latestTweets ? (
+        <TweetFeed tweets={data.latestTweets} />
+      ) : (
+        <p>No data</p>
+      )}
 
       <style jsx>{`
         .followerCount {
           margin-top: 0;
-        }
-
-        .userName {
-          font-size: 18px;
-          font-weight: 800;
-          margin-bottom: 0;
-        }
-
-        .tweetText {
-          margin-top: 5px;
         }
       `}</style>
 
