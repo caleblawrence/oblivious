@@ -10,7 +10,7 @@ function SingleTweet(props: Props) {
       <div key={tweet.id}>
         <p className="userName">{tweet.user.name}</p>
         <p className="tweetText">{tweet.text}</p>
-        {tweet.entities.media && (
+        {tweet.entities?.media && (
           <img
             style={{ maxHeight: 400, marginBottom: 100 }}
             src={tweet.entities.media[0].media_url}

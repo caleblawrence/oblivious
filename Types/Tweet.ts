@@ -3,11 +3,11 @@ export interface Tweet {
   id: number;
   text: string;
   user: User;
-  entities: Entities;
+  entities?: Entities;
 }
 
 interface Entities {
-  media: any;
+  media?: any;
 }
 
 interface User {
