@@ -1,5 +1,5 @@
 import { Tweet } from "../Types/Tweet";
-import { compareAsc, format } from "date-fns";
+import { format } from "date-fns";
 
 interface Props {
   tweet: Tweet;

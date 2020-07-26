@@ -9,9 +9,8 @@ function TweetFeed(props: Props) {
   return (
     <div>
       {tweets.map((tweet: Tweet) => (
-        <SingleTweet tweet={tweet} />
+        <SingleTweet tweet={tweet} key={tweet.id} />
       ))}
-      <style jsx>{``}</style>
     </div>
   );
 }
