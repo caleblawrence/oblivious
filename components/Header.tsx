@@ -7,7 +7,7 @@ function Header() {
       </p>
       <br />
 
-      <style jsx>{`
+      <style jsx global>{`
         .logo2 {
           font-size: 80px;
           margin-bottom: 5px;
