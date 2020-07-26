@@ -6,6 +6,7 @@ import {
   getMyTimeline,
   getTwitterHandlesFromRequest,
 } from "../twitter/MyTimeline";
+import Header from "../components/Header";
 
 interface Props {
   handles: string[];
@@ -16,51 +17,57 @@ function Home(props: Props) {
   const { handles, tweets } = props;
 
   return (
-    <div className="container">
-      <Head>
-        <title>Oblivious</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
+    <>
+      <Header />
+      <div className="container">
+        <Head>
+          <title>Oblivious</title>
+          <meta
+            name="viewport"
+            content="initial-scale=1.0, width=device-width"
+          />
+        </Head>
 
-      {handles && (
-        <p className="followerCount">
-          You are viewing tweets from {handles.length} people.
-        </p>
-      )}
+        {handles && (
+          <p className="followerCount">
+            You are viewing tweets from {handles.length} people.
+          </p>
+        )}
 
-      {tweets ? <TweetFeed tweets={tweets} /> : <p>No data</p>}
+        {tweets ? <TweetFeed tweets={tweets} /> : <p>No data</p>}
 
-      <style jsx>{`
-        .followerCount {
-          margin-top: 0;
-        }
-      `}</style>
+        <style jsx>{`
+          .followerCount {
+            margin-top: 0;
+          }
+        `}</style>
 
-      <style jsx global>{`
-        html,
-        body {
-          padding: 0;
-          margin: 0;
-          font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-            Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
-            sans-serif;
-        }
+        <style jsx global>{`
+          html,
+          body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+              Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+              sans-serif;
+          }
 
-        * {
-          box-sizing: border-box;
-        }
+          * {
+            box-sizing: border-box;
+          }
 
-        .container {
-          margin-right: auto; /* 1 */
-          margin-left: auto; /* 1 */
+          .container {
+            margin-right: auto; /* 1 */
+            margin-left: auto; /* 1 */
 
-          max-width: 960px; /* 2 */
+            max-width: 960px; /* 2 */
 
-          padding-right: 10px; /* 3 */
-          padding-left: 10px; /* 3 */
-        }
-      `}</style>
-    </div>
+            padding-right: 10px; /* 3 */
+            padding-left: 10px; /* 3 */
+          }
+        `}</style>
+      </div>
+    </>
   );
 }
 

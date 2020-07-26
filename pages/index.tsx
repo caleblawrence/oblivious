@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Header from "../components/Header";
 
 // TODO: input box for people they want to follow
 function Home() {
@@ -8,6 +9,8 @@ function Home() {
         <title>Oblivious</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
+
+      <Header />
 
       <style jsx global>{`
         html,
