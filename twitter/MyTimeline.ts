@@ -33,7 +33,7 @@ const getLatestTweets = async (handles: string[]) => {
   await Promise.all(
     handles.map(async (handle) => {
       let response = await fetch(
-        `${twitterAPI}?screen_name=${handle}&exclude_replies=true&count=20&include_rts=true`,
+        `${twitterAPI}?screen_name=${handle}&exclude_replies=true&count=100&include_rts=true`,
         {
           headers: new Headers({
             Authorization: `Bearer ${process.env.TWITTER_TOKEN}`,
