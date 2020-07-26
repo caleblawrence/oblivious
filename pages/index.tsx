@@ -11,6 +11,14 @@ function Home() {
       </Head>
 
       <Header />
+
+      <h3>
+        This page is still being developed but you can view a feed by creating a
+        url like:
+      </h3>
+      <a href="https://oblivious.vercel.app/my-timeline?handles=timneutkens&handles=dan_abramov">
+        https://oblivious.vercel.app/my-timeline?handles=timneutkens&handles=dan_abramov
+      </a>
     </div>
   );
 }
