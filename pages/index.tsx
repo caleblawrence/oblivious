@@ -1,7 +1,5 @@
 import Head from "next/head";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 // TODO: input box for people they want to follow
 function Home() {
   return (
