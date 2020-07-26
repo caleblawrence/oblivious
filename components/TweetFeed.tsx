@@ -1,4 +1,4 @@
-import { Tweet } from "../Types/Tweet";
+import { Tweet } from "../types/Tweet";
 import SingleTweet from "./SingleTweet";
 
 interface Props {
