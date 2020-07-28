@@ -7,7 +7,6 @@ interface Props {
 function SingleTweet(props: Props) {
   const { tweet } = props;
   return (
-    <a href={tweet.entities?.urls?.[0]?.url}>
       <div className="tweet">
         <img
           className="profilePicture"
@@ -70,7 +69,6 @@ function SingleTweet(props: Props) {
           }
         `}</style>
       </div>
-    </a>
   );
 }
 
