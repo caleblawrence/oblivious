@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import "../styles/index.css";
+import "../styles/inputBox.scss";
 
 interface Props {
   Component: any;

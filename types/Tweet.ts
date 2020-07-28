@@ -8,6 +8,7 @@ export interface Tweet {
 
 interface Entities {
   media?: any;
+  urls?: any;
 }
 
 interface User {

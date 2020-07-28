@@ -11,6 +11,7 @@ function Header() {
         .logo {
           font-size: 80px;
           margin-bottom: 5px;
+          margin-top: 5px;
         }
 
         .tagLine {

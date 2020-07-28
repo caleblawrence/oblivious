@@ -29,9 +29,14 @@ function Home(props: Props) {
         </Head>
 
         {handles && (
-          <p className="followerCount">
-            You are viewing tweets from {handles.length} people.
-          </p>
+          <>
+            <p className="followerCount">
+              You are viewing tweets from {handles.length} people.{" "}
+            </p>
+            <p>
+              <strong>Bookmark this page to view this same feed again.</strong>
+            </p>
+          </>
         )}
 
         {tweets ? <TweetFeed tweets={tweets} /> : <p>No data</p>}

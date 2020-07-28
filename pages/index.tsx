@@ -1,8 +1,39 @@
 import Head from "next/head";
 import Header from "../components/Header";
+import { useState } from "react";
 
-// TODO: input box for people they want to follow
 function Home() {
+  const [handles, setHandles] = useState<string[]>([]);
+  const [input, setInput] = useState<string>("");
+
+  const handleClick = (e: any) => {
+    if (input.trim() === "") return;
+    let newInput = input;
+    newInput = newInput.replace("@", "");
+
+    setHandles([...handles, newInput]);
+    setInput("");
+  };
+
+  const showMyFeed = () => {
+    let env = process.env.NODE_ENV || 'development';
+    let url = 'https://oblivious.vercel.app/my-timeline'
+    if (env === 'development') {
+      url = 'http://localhost:3000/my-timeline'
+    }
+
+    handles.forEach((handle, index) =>  {
+      if (index === 0) {
+          url += "?handles=" + handle;
+
+      } else {
+          url += "&handles=" + handle;
+      }
+    })
+
+    window.location.href = url;
+  }
+
   return (
     <div className="container">
       <Head>
@@ -12,15 +43,54 @@ function Home() {
 
       <Header />
 
-      <h3>
-        This page is still being developed but you can view a feed by creating a
-        url like:
-      </h3>
-      <a href="https://oblivious.vercel.app/my-timeline?handles=timneutkens&handles=dan_abramov">
-        https://oblivious.vercel.app/my-timeline?handles=timneutkens&handles=dan_abramov
-      </a>
+      <h2>Enter the twitter handles you want to follow:</h2>
+      <p style={{ fontSize: 16, color: "#275EFE" }}>
+        {handles.map((handle) => "@" + handle + " ")}
+      </p>
 
-      <h3>Legal</h3>
+      <div className="form-group">
+        <span>@</span>
+        <input
+          className="form-field"
+          type="text"
+          placeholder="handle"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          onKeyPress={(event) => {
+            if (event.key === "Enter") {
+              handleClick(event);
+            }
+          }}
+        ></input>
+      </div>
+      <button
+        style={{
+          marginTop: 5,
+          padding: 3,
+          border: "1px solid #99A3BA",
+          borderRadius: 5,
+        }}
+        onClick={handleClick}
+      >
+        Add ↵
+      </button>
+
+      <div>
+        <button
+          style={{
+            marginTop: 20,
+            padding: 8,
+            border: "1px solid #99A3BA",
+            borderRadius: 5,
+            fontSize: 18
+          }}
+          onClick={showMyFeed}
+        >
+          Show My Feed
+        </button>
+      </div>
+
+      <h2 style={{ marginTop: 100 }}>Legal</h2>
       <p>
         This website adheres to all the restructions under the "Public display
         of Tweets" section of the{" "}
