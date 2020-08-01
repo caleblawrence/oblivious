@@ -1,6 +1,6 @@
 # oblivious
 
-![screenshot](screenshot.png)
+![screenshot](screenshot2.png)
 
 
 This small app lets you create a Twitter feed that only shows the raw tweets of the people you follow (nothing else).
