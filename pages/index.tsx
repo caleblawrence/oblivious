@@ -43,7 +43,7 @@ function Home() {
 
       <Header />
 
-      <h2>Enter the twitter handles you want to follow:</h2>
+      <h2>Enter the Twitter handles you want to follow:</h2>
       <p style={{ fontSize: 16, color: "#275EFE" }}>
         {handles.map((handle) => "@" + handle + " ")}
       </p>
