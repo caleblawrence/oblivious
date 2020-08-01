@@ -7,6 +7,7 @@ import {
   getTwitterHandlesFromRequest,
 } from "../twitter/MyTimeline";
 import Header from "../components/Header";
+import { useState } from "react";
 
 interface Props {
   handles: string[];
@@ -15,6 +16,41 @@ interface Props {
 
 function Home(props: Props) {
   const { handles, tweets } = props;
+  const [isAddingHandles, setIsAddingHandles] = useState(false);
+  const [input, setInput] = useState<string>("");
+  const [handlesState, setHandlesState] = useState([...handles]);
+
+  const addHandle = (e: any) => {
+    if (input.trim() === "") return;
+    let newInput = input;
+    newInput = newInput.replace("@", "");
+
+    setHandlesState([...handlesState, newInput]);
+    setInput("");
+  };
+
+  const handleClick = () => {
+    setIsAddingHandles(true);
+  };
+
+   const showMyFeed = () => {
+    let env = process.env.NODE_ENV || 'development';
+    let url = 'https://oblivious.vercel.app/my-timeline'
+    if (env === 'development') {
+      url = 'http://localhost:3000/my-timeline'
+    }
+
+    handlesState.forEach((handle, index) =>  {
+      if (index === 0) {
+          url += "?handles=" + handle;
+
+      } else {
+          url += "&handles=" + handle;
+      }
+    })
+
+    window.location.href = url;
+  }
 
   return (
     <>
@@ -30,12 +66,75 @@ function Home(props: Props) {
 
         {handles && (
           <>
-            <p className="followerCount">
-              You are viewing tweets from {handles.length} people.{" "}
+            <p style={{ fontSize: 16, marginBottom: 0 }}>
+              {" "}
+              You are viewing tweets from:{" "}
+              {handlesState.map((handle) => (
+                <span style={{ color: "#275EFE" }}>{"@" + handle + " "}</span>
+              ))}
             </p>
-            <p>
-              <strong>Bookmark this page to view this same feed again.</strong>
-            </p>
+            {!isAddingHandles && (
+              <button
+                style={{
+                  marginTop: 5,
+                  fontSize: 14,
+                  padding: 2,
+                  border: "1px solid #99A3BA",
+                  borderRadius: 5,
+                }}
+                onClick={handleClick}
+              >
+                Add people
+              </button>
+            )}
+
+            {isAddingHandles && (
+              <div>
+                <div className="form-group">
+                  <span>@</span>
+                  <input
+                    className="form-field"
+                    type="text"
+                    placeholder="handle"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyPress={(event) => {
+                      if (event.key === "Enter") {
+                        addHandle(event);
+                      }
+                    }}
+                  ></input>
+                </div>
+                <button
+                  style={{
+                    marginTop: 5,
+                    padding: 3,
+                    border: "1px solid #99A3BA",
+                    borderRadius: 5,
+                  }}
+                  onClick={addHandle}
+                >
+                  Add ↵
+                </button>
+              </div>
+            )}
+            {isAddingHandles && (
+              <div>
+                <button
+                  style={{
+                    marginTop: 20,
+                    padding: 8,
+                    border: "1px solid #99A3BA",
+                    borderRadius: 5,
+                    fontSize: 18,
+                    marginBottom: 10,
+                  }}
+                  onClick={showMyFeed}
+                >
+                  Refresh My Feed
+                </button>
+              </div>
+            )}
           </>
         )}
 

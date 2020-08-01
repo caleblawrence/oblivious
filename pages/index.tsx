@@ -88,6 +88,7 @@ function Home() {
         >
           Show My Feed
         </button>
+        <p>Be sure and bookmark your feed so you can view it again.</p>
       </div>
 
       <h2 style={{ marginTop: 100 }}>Legal</h2>

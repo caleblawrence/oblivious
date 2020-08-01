@@ -10,13 +10,14 @@ function Header() {
       <style jsx>{`
         .logo {
           font-size: 80px;
-          margin-bottom: 5px;
+          margin-bottom: 0;
           margin-top: 5px;
         }
 
         .tagLine {
           margin-top: 0;
           color: #656464;
+          margin-bottom: 0
         }
 
         @media only screen and (max-width: 768px) {
