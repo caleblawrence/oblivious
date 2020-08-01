@@ -1,5 +1,8 @@
 # oblivious
 
+![screenshot](screenshot.png)
+
+
 This is an ongoing project. I currently have a couple people I have hardcoded but I would like to expand this site so that there is auth and people can add their own followers.
 
 ### Motivation
