@@ -1,12 +1,13 @@
 import Head from "next/head";
 import Header from "../components/Header";
 import { useState } from "react";
+import React from "react";
 
 function Home() {
-  const [handles, setHandles] = useState<string[]>([]);
-  const [input, setInput] = useState<string>("");
+  const [handles, setHandles] = useState([]);
+  const [input, setInput] = useState("");
 
-  const handleClick = (e: any) => {
+  const handleClick = (e) => {
     if (input.trim() === "") return;
     let newInput = input;
     newInput = newInput.replace("@", "");
@@ -16,23 +17,22 @@ function Home() {
   };
 
   const showMyFeed = () => {
-    let env = process.env.NODE_ENV || 'development';
-    let url = 'https://oblivious.vercel.app/my-timeline'
-    if (env === 'development') {
-      url = 'http://localhost:3000/my-timeline'
+    let env = process.env.NODE_ENV || "development";
+    let url = "https://oblivious.vercel.app/my-timeline";
+    if (env === "development") {
+      url = "http://localhost:3000/my-timeline";
     }
 
-    handles.forEach((handle, index) =>  {
+    handles.forEach((handle, index) => {
       if (index === 0) {
-          url += "?handles=" + handle;
-
+        url += "?handles=" + handle;
       } else {
-          url += "&handles=" + handle;
+        url += "&handles=" + handle;
       }
-    })
+    });
 
     window.location.href = url;
-  }
+  };
 
   return (
     <div className="container">
@@ -82,7 +82,7 @@ function Home() {
             padding: 8,
             border: "1px solid #99A3BA",
             borderRadius: 5,
-            fontSize: 18
+            fontSize: 18,
           }}
           onClick={showMyFeed}
         >

@@ -1,11 +1,6 @@
-import { Tweet } from "../types/Tweet";
 import { format } from "date-fns";
 
-interface Props {
-  tweet: Tweet;
-}
-function SingleTweet(props: Props) {
-  const { tweet } = props;
+function SingleTweet({ tweet }) {
   return (
     <div className="tweet">
       <img className="profilePicture" src={tweet.profile_image_url} alt="" />

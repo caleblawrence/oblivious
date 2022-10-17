@@ -1,12 +1,9 @@
 /* eslint-disable react/jsx-props-no-spreading */
+import React from "react";
 import "../styles/index.css";
 import "../styles/inputBox.scss";
 
-interface Props {
-  Component: any;
-  pageProps: any;
-}
-export default function MyApp(props: Props) {
+export default function MyApp(props) {
   const { Component, pageProps } = props;
   return <Component {...pageProps} />;
 }

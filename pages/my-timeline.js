@@ -1,6 +1,5 @@
 import Head from "next/head";
 import TweetFeed from "../components/TweetFeed";
-import { GetServerSideProps } from "next";
 import {
   getMyTimeline,
   getTwitterHandlesFromRequest,
@@ -8,18 +7,12 @@ import {
 import Header from "../components/Header";
 import { useState } from "react";
 
-interface Props {
-  handles: string[];
-  tweets: Tweet[];
-}
-
-function Home(props: Props) {
-  const { handles, tweets } = props;
+function Home({ handles, tweets }) {
   const [isAddingHandles, setIsAddingHandles] = useState(false);
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState < string > "";
   const [handlesState, setHandlesState] = useState([...handles]);
 
-  const addHandle = (e: any) => {
+  const addHandle = (e) => {
     if (input.trim() === "") return;
     let newInput = input;
     newInput = newInput.replace("@", "");
@@ -150,7 +143,7 @@ function Home(props: Props) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getServerSideProps = async (context) => {
   let handles = getTwitterHandlesFromRequest(context);
   let data = await getMyTimeline(handles);
 

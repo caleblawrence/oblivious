@@ -1,5 +1,3 @@
-import { Tweet } from "../types/Tweet";
-
 export const getTwitterHandlesFromRequest = (context) => {
   let handles = [];
   if (context?.query?.handles) {
