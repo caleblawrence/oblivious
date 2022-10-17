@@ -15,5 +15,5 @@ interface User {
   id: number;
   name: string;
   screen_name: string;
-  profile_image_url_https: string;
+  profile_image_url: string;
 }

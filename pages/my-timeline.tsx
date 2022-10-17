@@ -1,7 +1,6 @@
 import Head from "next/head";
 import TweetFeed from "../components/TweetFeed";
 import { GetServerSideProps } from "next";
-import { Tweet } from "../types/Tweet";
 import {
   getMyTimeline,
   getTwitterHandlesFromRequest,
@@ -33,24 +32,23 @@ function Home(props: Props) {
     setIsAddingHandles(true);
   };
 
-   const showMyFeed = () => {
-    let env = process.env.NODE_ENV || 'development';
-    let url = 'https://oblivious.vercel.app/my-timeline'
-    if (env === 'development') {
-      url = 'http://localhost:3000/my-timeline'
+  const showMyFeed = () => {
+    let env = process.env.NODE_ENV || "development";
+    let url = "https://oblivious.vercel.app/my-timeline";
+    if (env === "development") {
+      url = "http://localhost:3000/my-timeline";
     }
 
-    handlesState.forEach((handle, index) =>  {
+    handlesState.forEach((handle, index) => {
       if (index === 0) {
-          url += "?handles=" + handle;
-
+        url += "?handles=" + handle;
       } else {
-          url += "&handles=" + handle;
+        url += "&handles=" + handle;
       }
-    })
+    });
 
     window.location.href = url;
-  }
+  };
 
   return (
     <>
@@ -70,7 +68,9 @@ function Home(props: Props) {
               {" "}
               You are viewing tweets from:{" "}
               {handlesState.map((handle) => (
-                <span style={{ color: "#275EFE" }}>{"@" + handle + " "}</span>
+                <span key={handle} style={{ color: "#275EFE" }}>
+                  {"@" + handle + " "}
+                </span>
               ))}
             </p>
             {!isAddingHandles && (
