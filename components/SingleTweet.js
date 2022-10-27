@@ -11,9 +11,7 @@ function SingleTweet({ tweet }) {
           {format(new Date(tweet.created_at), "MMM d")}
         </p>
         <p className="tweetText">{tweet.text}</p>
-        {tweet.entities?.media && (
-          <img src={tweet.entities.media[0].media_url_https} />
-        )}
+        {tweet.mediaUrl && <img src={tweet.mediaUrl} />}
       </div>
       <style jsx>{`
         .profilePicture {

@@ -11,7 +11,7 @@ export const getTwitterHandlesFromRequest = (context) => {
 };
 
 function isString(value) {
-  return typeof value === "string" || value instanceof String;
+  return typeof value === "string";
 }
 
 export const getMyTimeline = async (handles) => {
@@ -38,10 +38,9 @@ const getLatestTweets = async (handles) => {
       );
 
       let user = await userResponse.json();
-      console.log("user", user);
 
       let timelineResponse = await fetch(
-        `${process.env.TWITTER_API_URL}/users/${user.data.id}/tweets?max_results=100&tweet.fields=referenced_tweets,created_at`,
+        `${process.env.TWITTER_API_URL}/users/${user.data.id}/tweets?max_results=100&tweet.fields=referenced_tweets,created_at,attachments&media.fields=variants,alt_text,preview_image_url,url&expansions=attachments.media_keys`,
         {
           headers: new Headers({
             Authorization: `Bearer ${process.env.TWITTER_TOKEN}`,
@@ -49,7 +48,8 @@ const getLatestTweets = async (handles) => {
         }
       );
 
-      let { data: timeline } = await timelineResponse.json();
+      let { data: timeline, includes } = await timelineResponse.json();
+      const media = includes.media;
 
       if (timeline.errors && timeline.errors.length) {
         console.error(
@@ -72,9 +72,20 @@ const getLatestTweets = async (handles) => {
 
         tweet.profile_image_url = user.data.profile_image_url;
         tweet.username = user.data.name;
+        if (
+          tweet.attachments &&
+          tweet.attachments.media_keys &&
+          tweet.attachments.media_keys.length
+        ) {
+          const mediaForTweet = media.find(
+            (x) => x.media_key === tweet.attachments.media_keys[0]
+          );
+          if (mediaForTweet.type === "photo") {
+            tweet.mediaUrl = mediaForTweet.url;
+          }
+        }
         tweetsToReturn.push(tweet);
       }
-      console.log("tweetsToReturn", tweetsToReturn);
     })
   );
   return sortByDate(tweetsToReturn);

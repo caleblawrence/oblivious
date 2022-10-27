@@ -9,7 +9,7 @@ import { useState } from "react";
 
 function Home({ handles, tweets }) {
   const [isAddingHandles, setIsAddingHandles] = useState(false);
-  const [input, setInput] = useState < string > "";
+  const [input, setInput] = useState("");
   const [handlesState, setHandlesState] = useState([...handles]);
 
   const addHandle = (e) => {

@@ -18,6 +18,7 @@ function Home() {
 
   const showMyFeed = () => {
     let env = process.env.NODE_ENV || "development";
+    console.log("env", env);
     let url = "https://oblivious.vercel.app/my-timeline";
     if (env === "development") {
       url = "http://localhost:3000/my-timeline";
